@@ -1,18 +1,18 @@
-/* Mobile-First Navbar Styles */
-
-/* Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Navigation Container */
 .navigation-out {
-  width: 100%;
-  padding-top: 20px;
+  width: 95%;
+  margin: 0 auto;
+  padding-top: 24px;
   position: relative;
   z-index: 1000;
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 17px;
+  font-weight: 500;
 }
 
 .navigation-header {
@@ -29,10 +29,9 @@
   width: 100%;
 }
 
-/* Logo Styles */
 .logoa {
   flex-shrink: 0;
-  display: none; /* Hidden on small screens */
+  display: none;
 }
 
 .logoa a {
@@ -45,22 +44,20 @@
   width: auto;
 }
 
-/* Mobile Menu Toggle (Hamburger) */
 .open-menu-dds {
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   padding: 8px;
-  order: 1;
+  order: -1;
 }
 
 .navigation-svg {
-  font-size: 28px;
+  font-size: 36px;
   color: white;
 }
 
-/* Hide PC Menu on Mobile */
 .pc-menu {
   display: none;
 }
@@ -69,7 +66,6 @@
   display: none;
 }
 
-/* Mobile Dropdown Menu */
 .menu-drop-down {
   background-color: #ffffff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -86,19 +82,15 @@
 
 .menu-drop-down-item {
   display: block;
-  padding: 16px 20px;
+  padding: 16px 20px 16px 32px;
   text-decoration: none;
-  color: #333;
   transition: background-color 0.2s ease;
-  border-bottom: 1px solid #f0f0f0;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .menu-drop-down-item:hover {
   background-color: #f8f8f8;
-}
-
-.menu-drop-down-item:last-child {
-  border-bottom: none;
 }
 
 .collectionSpan {
@@ -106,20 +98,17 @@
 }
 
 .menu-item-name {
-  font-size: 16px;
-  font-weight: 500;
   margin: 0;
   color: #333;
 }
 
-/* Mobile Language Selector */
 .lang-dropk {
   display: flex;
   align-items: center;
   order: 3;
+  margin-left: auto;
 }
 
-/* Navigation Menu Bar Wrapper */
 .navigation-menu-bar {
   position: absolute;
   width: calc(100% - 20px);
@@ -143,8 +132,6 @@
 }
 
 .flag-name {
-  font-size: 14px;
-  font-weight: 500;
   margin: 0;
   color: white;
 }
@@ -155,7 +142,6 @@
   border-radius: 2px;
 }
 
-/* Language Dropdown List */
 .dropdownList {
   position: absolute;
   top: calc(100% + 8px);
@@ -208,7 +194,6 @@
   border-radius: 2px;
 }
 
-/* Collection Items (for PC menu, hidden on mobile) */
 .collectionitem {
   font-size: 15px;
   font-weight: 500;
@@ -216,7 +201,6 @@
   color: #333;
 }
 
-/* Language Title Box (for PC menu) */
 .language-title-box {
   display: flex;
   align-items: center;
@@ -236,7 +220,115 @@
   border-radius: 2px;
 }
 
-/* Utility Classes */
 .collectionSpan {
   display: inline-block;
+}
+
+@media (min-width: 420px) and (max-width: 767px) {
+  .navigation-menu-bar {
+    width: 175px;
+    left: 30px;
+    transform: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .navigation-out {
+    width: 85%;
+  }
+
+  .logoa {
+    display: none;
+  }
+
+  .open-menu-dds {
+    display: flex;
+  }
+
+  .nav-right-group .pc-menu {
+    display: none;
+  }
+
+  .lang-dropk {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .navigation-section {
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navigation-menu-bar {
+    width: 250px;
+    left: 30px;
+    transform: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navigation-out {
+    width: 80%;
+    padding-top: 20px;
+  }
+
+  .navigation-section {
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logoa {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .open-menu-dds {
+    display: none;
+  }
+
+  .navigation-menu-bar {
+    display: none;
+  }
+
+  .nav-right-group {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-left: auto;
+  }
+
+  .pc-menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .pc-menu-item {
+    text-decoration: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .pc-menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .pc-menu-item .collectionSpan {
+    display: inline-block;
+  }
+
+  .lang-dropk {
+    flex-shrink: 0;
+  }
+
+  .navigation-logo {
+    height: 32px;
+  }
 }

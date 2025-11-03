@@ -1,0 +1,33 @@
+{
+  "login": {
+    "heading": "Logga in",
+    "emailLabel": "Skriv in din epost adress",
+    "emailPlaceholder": "Epost adress",
+    "passwordLabel": "Skriv in ditt lösenord",
+    "passwordPlaceholder": "Lösenord",
+    "showPassword": "Visa lösenord",
+    "hidePassword": "Dölj lösenord",
+    "submitButton": "Logga in",
+    "registerLink": "Registrera dig",
+    "forgotPasswordLink": "Glömt lösenord?",
+    "errors": {
+      "emailRequired": "E-post krävs",
+      "emailInvalid": "Vänligen ange en giltig e-postadress"
+    }
+  },
+  "nav": {
+    "logo": "Logotyp",
+    "home": "Hem",
+    "order": "Beställa",
+    "customers": "Våra Kunder",
+    "about": "Om Oss",
+    "contact": "Kontakta Oss"
+  },
+  "footer": {
+    "brand": "123 Fakturera",
+    "home": "Hem",
+    "order": "Beställa",
+    "contact": "Kontakta oss",
+    "copyright": "© Lättfaktura, org.nr. 638537, 2025. Alla rättigheter förbehållna."
+  }
+}

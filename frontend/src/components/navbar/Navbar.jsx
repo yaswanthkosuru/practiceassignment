@@ -1,37 +1,70 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Navbar.css";
+import useLang from "../../hooks/useLang";
+
 export default function Navbar() {
+  const { t, language, changeLanguage } = useLang();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [selectedLang, setSelectedLang] = useState({
-    code: 'sv',
-    name: 'Svenska',
-    flag: 'https://storage.123fakturere.no/public/flags/SE.png'
-  });
+
+  const menuRef = useRef(null);
+  const langRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+      if (langRef.current && !langRef.current.contains(event.target)) {
+        setIsLangOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const navItems = [
+    { nameKey: "nav.home", path: "/" },
+    { nameKey: "nav.order", path: "/" },
+    { nameKey: "nav.customers", path: "/" },
+    { nameKey: "nav.about", path: "/" },
+    { nameKey: "nav.contact", path: "/" },
+  ];
+
+  const languages = {
+    en: {
+      code: "en",
+      name: "English",
+      flag: "https://storage.123fakturere.no/public/flags/GB.png",
+    },
+    sv: {
+      code: "sv",
+      name: "Svenska",
+      flag: "https://storage.123fakturere.no/public/flags/SE.png",
+    },
+  };
+
+  const selectedLang = languages[language] || languages.en;
 
   const toggleMenu = () => {
+    if (!isMenuOpen) {
+      setIsLangOpen(false);
+    }
     setIsMenuOpen(!isMenuOpen);
   };
 
   const toggleLangMenu = () => {
+    if (!isLangOpen) {
+      setIsMenuOpen(false);
+    }
     setIsLangOpen(!isLangOpen);
   };
 
   const selectLanguage = (lang) => {
-    const languages = {
-      en: {
-        code: 'en',
-        name: 'English',
-        flag: 'https://storage.123fakturere.no/public/flags/GB.png'
-      },
-      sv: {
-        code: 'sv',
-        name: 'Svenska',
-        flag: 'https://storage.123fakturere.no/public/flags/SE.png'
-      }
-    };
-
-    setSelectedLang(languages[lang]);
+    changeLanguage(lang);
     setIsLangOpen(false);
   };
 
@@ -39,8 +72,17 @@ export default function Navbar() {
     <nav className="navigation-out">
       <header className="navigation-header">
         <section className="navigation-section">
-          {/* Hamburger Menu Toggle */}
-          <div className="open-menu-dds" onClick={toggleMenu}>
+          <div className="logoa">
+            <a href="/">
+              <img
+                src="https://storage.123fakturera.se/public/icons/diamond.png"
+                alt={t("nav.logo")}
+                className="navigation-logo"
+              />
+            </a>
+          </div>
+
+          <div className="open-menu-dds" onClick={toggleMenu} ref={menuRef}>
             {isMenuOpen ? (
               <svg
                 stroke="currentColor"
@@ -70,71 +112,64 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Dropdown Menu */}
           <div className={`navigation-menu-bar ${isMenuOpen ? "open" : ""}`}>
             <div
               className="menu-drop-down"
-              style={{ height: isMenuOpen ? "325px" : "0" }}
+              style={{ height: isMenuOpen ? "300px" : "0" }}
             >
               <div className="menu-drop-down-container">
-                <a className="menu-drop-down-item" href="/">
-                  <p className="menu-item-name">Hem</p>
-                </a>
-                <a className="menu-drop-down-item" href="/bestall">
-                  <p className="menu-item-name">Beställ</p>
-                </a>
-                <a className="menu-drop-down-item" href="/kunder">
-                  <p className="menu-item-name">Våra Kunder</p>
-                </a>
-                <a className="menu-drop-down-item" href="/omoss">
-                  <p className="menu-item-name">Om oss</p>
-                </a>
-                <a className="menu-drop-down-item" href="/kontakta">
-                  <p className="menu-item-name">Kontakta oss</p>
-                </a>
+                {navItems.map((item) => (
+                  <a
+                    key={item.path}
+                    className="menu-drop-down-item"
+                    href={item.path}
+                  >
+                    <p className="menu-item-name">{t(item.nameKey)}</p>
+                  </a>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Language Selector */}
-          <div className="lang-dropk">
-            <div className="dropdownContainer">
-              <div className="language-box" onClick={toggleLangMenu}>
-                <p className="flag-name">{selectedLang.name}</p>
-                <img
-                  src={selectedLang.flag}
-                  className="icon-flag-nav"
-                  alt={selectedLang.name}
-                />
-              </div>
+          <div className="nav-right-group">
+            <div className="pc-menu">
+              {navItems.map((item) => (
+                <a key={item.path} className="pc-menu-item" href={item.path}>
+                  <span className="collectionSpan">{t(item.nameKey)}</span>
+                </a>
+              ))}
+            </div>
 
-              {/* Language Dropdown */}
-              {isLangOpen && (
-                <div className="dropdownList">
-                  <div
-                    className="drop-down-element"
-                    onClick={() => selectLanguage('en')}
-                  >
-                    <p className="flag-name">English</p>
-                    <img
-                      src="https://storage.123fakturere.no/public/flags/GB.png"
-                      className="icon-flag-nav"
-                      alt="English"
-                    />
-                  </div>
-                  <div
-                    className="drop-down-element"
-                    onClick={() => selectLanguage('sv')}
-                  >
-                    <p className="flag-name">Svenska</p>
-                    <img
-                      src="https://storage.123fakturere.no/public/flags/SE.png"
-                      className="icon-flag-nav"
-                      alt="Svenska"
-                    />
-                  </div>
+            <div className="lang-dropk">
+              <div className="dropdownContainer" ref={langRef}>
+                <div className="language-box" onClick={toggleLangMenu}>
+                  <p className="flag-name">{selectedLang.name}</p>
+                  <img
+                    src={selectedLang.flag}
+                    className="icon-flag-nav"
+                    alt={selectedLang.name}
+                  />
                 </div>
-              )}
+
+                {isLangOpen && (
+                  <div className="dropdownList">
+                    {Object.entries(languages).map(([code, lang]) => (
+                      <div
+                        key={code}
+                        className="drop-down-element"
+                        onClick={() => selectLanguage(code)}
+                      >
+                        <p className="flag-name">{lang.name}</p>
+                        <img
+                          src={lang.flag}
+                          className="icon-flag-nav"
+                          alt={lang.name}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </section>
