@@ -1,0 +1,205 @@
+/* Login Page - Mobile First Card Design */
+
+.login-content-root {
+  font-family: "Open Sans", sans-serif !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.back-login {
+  background: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Login Heading */
+.login-heading {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+
+/* Login Section */
+.login-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+
+/* Email and Password Sections */
+.login-email,
+.login-password {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Labels */
+.login-email-label,
+.login-password-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 4px;
+}
+
+/* Input Fields */
+.login-input {
+  width: 100%;
+  padding: 16px 16px;
+  font-size: 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+  background: #f7fafc;
+  color: #2d3748;
+  box-sizing: border-box;
+  height: 52px;
+}
+
+.login-input:focus {
+  border-color: #667eea;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.login-input::placeholder {
+  color: #a0aec0;
+}
+
+/* Password Input Container */
+.password-input-div {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-div .login-input {
+  padding-right: 48px;
+}
+
+#show-password-img {
+  position: absolute;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+#show-password-img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Error Spans */
+.error-span {
+  font-size: 12px;
+  color: #e53e3e;
+  min-height: 0;
+  display: none;
+  margin-top: 6px;
+  margin-bottom: 8px;
+  padding-left: 2px;
+}
+
+.error-span:not(:empty) {
+  display: block;
+  min-height: 18px;
+}
+
+.invalid-credentials {
+  font-size: 13px;
+  color: #e53e3e;
+  text-align: center;
+  min-height: 20px;
+  padding: 8px;
+  border-radius: 6px;
+  background: #fff5f5;
+  display: none;
+}
+
+.invalid-credentials:not(:empty) {
+  display: block;
+}
+
+/* Login Button */
+.Login-Button-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.Login-Button {
+  width: 80%;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background: green;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
+  border-radius: 20px;
+}
+
+/* Links Section */
+.gotodifferntlink {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 40px;
+}
+
+.login-new-customer,
+.login-forgot-password {
+  font-size: 14px;
+  font-weight: 500;
+  color: #667eea;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-new-customer:hover,
+.login-forgot-password:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments for very small screens */
+@media (max-width: 380px) {
+  .back-login {
+    padding: 24px 20px;
+  }
+
+  .login-heading {
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 24px;
+    color: #e53e3e;
+  }
+
+  .login-input {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+
+  .Login-Button {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}
