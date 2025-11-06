@@ -34,6 +34,33 @@ const defaultTranslations = {
     "order": "Order",
     "contact": "Contact us",
     "copyright": "© Lättfaktura, CRO no. 638537, 2025. All rights reserved."
+  },
+  "dashboard": {
+    "menu": "Menu",
+    "invoices": "Invoices",
+    "customers": "Customers",
+    "mybusiness": "My Business",
+    "invoicejournal": "Invoice Journal",
+    "pricelist": "Price List",
+    "multipleinvoicing": "Multiple Invoicing",
+    "unpaidinvoices": "Unpaid Invoices",
+    "offer": "Offer",
+    "inventorycontrol": "Inventory Control",
+    "memberinvoicing": "Member Invoicing",
+    "importexport": "Import/Export",
+    "logout": "Log out",
+    "searchArticle": "Search Article No ...",
+    "searchProduct": "Search Product ...",
+    "newProduct": "New Product",
+    "printList": "Print List",
+    "advancedMode": "Advanced mode",
+    "articleNo": "Article No.",
+    "productService": "Product/Service",
+    "inPrice": "In Price",
+    "price": "Price",
+    "unit": "Unit",
+    "inStock": "In Stock",
+    "description": "Description"
   }
 };
 

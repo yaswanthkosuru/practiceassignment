@@ -1,0 +1,144 @@
+.top-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(90deg, #1e88e5 0%, #1565c0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.top-navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hamburger-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger-menu-btn span {
+  width: 24px;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.top-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #42a5f5 0%, #1976d2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.top-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-user-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.top-user-company {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.2;
+}
+
+.top-navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.top-language-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.language-text {
+  white-space: nowrap;
+}
+
+.flag-emoji {
+  font-size: 20px;
+}
+
+@media (max-width: 767px) {
+  .top-navbar {
+    padding: 0 12px;
+    height: 56px;
+  }
+
+  .hamburger-menu-btn {
+    display: flex;
+  }
+
+  .top-navbar-left {
+    gap: 12px;
+  }
+
+  .top-user-profile {
+    display: none;
+  }
+
+  .top-language-toggle {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .language-text {
+    display: none;
+  }
+
+  .flag-emoji {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hamburger-menu-btn {
+    display: flex;
+  }
+
+  .top-user-profile {
+    display: none;
+  }
+}
