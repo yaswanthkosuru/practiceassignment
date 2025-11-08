@@ -4,7 +4,9 @@ body {
   min-height: 100vh;
   background-image: url("./assets/bgimage.jpg");
   background-position: 50% 45%;
-  background-size: clip;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 }
 
 #root {
@@ -22,26 +24,30 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 @media (min-width: 1280px) {
   body {
-    overflow: hidden;
-    height: 100vh;
-    background-attachment: fixed;
-    background-position: 20% 20%;
-  }
-
-  #root {
-    height: 100vh;
-  }
-
-  .app-container {
-    height: 100vh;
-    overflow: hidden;
-  }
-
-  .main-content {
-    overflow-y: auto;
+    position: relative;
+    overflow-y: auto; /* Allow scrolling */
     overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background-image: url("./assets/bgimage.jpg");
+    background-attachment: fixed;
+    background-position: center top;
+    background-size: 100% 160vh;
+    background-repeat: no-repeat;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  body {
+    background-image: none; /* Remove original background for desktop */
   }
 }

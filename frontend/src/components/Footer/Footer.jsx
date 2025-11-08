@@ -9,8 +9,6 @@ const Footer = () => {
       <footer className="footer-div" style={{ position: "relative" }}>
         <div
           style={{
-            paddingBottom: "40px",
-            marginBottom: "10px",
             borderBottom: "1px solid white",
           }}
           className="footer--text-section"
