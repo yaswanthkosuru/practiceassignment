@@ -1,22 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import useLang from "../../../hooks/useLang";
-import { menuItems } from "../mockData";
 import "./Sidebar.css";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const { t } = useLang();
+  const { t, getMenuItems } = useLang();
+  const menuItems = getMenuItems();
 
-  const handleMenuClick = (itemId) => {
+  const handleMenuClick = (itemId, route) => {
     if (itemId === "logout") {
       logout();
       navigate("/");
-    } else if (itemId === "pricelist") {
-      navigate("/dashboard");
     } else {
-      navigate(`/dashboard/${itemId}`);
+      navigate(route);
     }
     onClose();
   };
@@ -31,11 +29,11 @@ const Sidebar = ({ isOpen, onClose }) => {
             {menuItems.map((item) => (
               <li
                 key={item.id}
-                className={`menu-item ${item.active ? "menu-item-active" : ""}`}
-                onClick={() => handleMenuClick(item.id)}
+                className="menu-item"
+                onClick={() => handleMenuClick(item.id, item.route)}
               >
                 <span className="menu-icon">{item.icon}</span>
-                <span className="menu-label">{t(`dashboard.${item.id}`) || item.label}</span>
+                <span className="menu-label">{item.label}</span>
               </li>
             ))}
           </ul>

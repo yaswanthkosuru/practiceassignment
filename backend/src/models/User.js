@@ -1,68 +1,169 @@
-let users = [];
-let nextId = 1;
+const { pool } = require('../config/database');
 
 class User {
-  constructor(id, username, email, password) {
+  constructor(id, username, email, password, created_at, updated_at) {
     this.id = id;
     this.username = username;
     this.email = email;
     this.password = password;
-    this.createdAt = new Date();
+    this.createdAt = created_at;
+    this.updatedAt = updated_at;
   }
 
-  static create(userData) {
-    const user = new User(
-      nextId++,
-      userData.username,
-      userData.email,
-      userData.password
-    );
-    users.push(user);
-    return user;
-  }
-
-  static findById(id) {
-    return users.find((user) => user.id === id);
-  }
-
-  static findByEmail(email) {
-    return users.find((user) => user.email === email);
-  }
-
-  static findByUsername(username) {
-    return true;
-  }
-
-  static getAll() {
-    return users.map((user) => ({
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      createdAt: user.createdAt,
-    }));
-  }
-
-  static update(id, updates) {
-    const userIndex = users.findIndex((user) => user.id === id);
-    if (userIndex !== -1) {
-      users[userIndex] = { ...users[userIndex], ...updates };
-      return users[userIndex];
+  static async create(userData) {
+    try {
+      const result = await pool.query(
+        'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *',
+        [userData.username, userData.email, userData.password]
+      );
+      const row = result.rows[0];
+      return new User(
+        row.id,
+        row.username,
+        row.email,
+        row.password,
+        row.created_at,
+        row.updated_at
+      );
+    } catch (error) {
+      throw error;
     }
-    return null;
   }
 
-  static delete(id) {
-    const userIndex = users.findIndex((user) => user.id === id);
-    if (userIndex !== -1) {
-      users.splice(userIndex, 1);
-      return true;
+  static async findById(id) {
+    try {
+      const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+      if (result.rows.length === 0) {
+        return null;
+      }
+      const row = result.rows[0];
+      return new User(
+        row.id,
+        row.username,
+        row.email,
+        row.password,
+        row.created_at,
+        row.updated_at
+      );
+    } catch (error) {
+      throw error;
     }
-    return false;
   }
 
-  static clearAll() {
-    users = [];
-    nextId = 1;
+  static async findByEmail(email) {
+    try {
+      const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+      if (result.rows.length === 0) {
+        return null;
+      }
+      const row = result.rows[0];
+      return new User(
+        row.id,
+        row.username,
+        row.email,
+        row.password,
+        row.created_at,
+        row.updated_at
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async findByUsername(username) {
+    try {
+      const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+      if (result.rows.length === 0) {
+        return null;
+      }
+      const row = result.rows[0];
+      return new User(
+        row.id,
+        row.username,
+        row.email,
+        row.password,
+        row.created_at,
+        row.updated_at
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getAll() {
+    try {
+      const result = await pool.query('SELECT id, username, email, created_at FROM users');
+      return result.rows.map(row => ({
+        id: row.id,
+        username: row.username,
+        email: row.email,
+        createdAt: row.created_at,
+      }));
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async update(id, updates) {
+    try {
+      const fields = [];
+      const values = [];
+      let paramCount = 1;
+
+      if (updates.username) {
+        fields.push(`username = $${paramCount++}`);
+        values.push(updates.username);
+      }
+      if (updates.email) {
+        fields.push(`email = $${paramCount++}`);
+        values.push(updates.email);
+      }
+      if (updates.password) {
+        fields.push(`password = $${paramCount++}`);
+        values.push(updates.password);
+      }
+
+      if (fields.length === 0) {
+        return null;
+      }
+
+      values.push(id);
+      const query = `UPDATE users SET ${fields.join(', ')} WHERE id = $${paramCount} RETURNING *`;
+
+      const result = await pool.query(query, values);
+      if (result.rows.length === 0) {
+        return null;
+      }
+      const row = result.rows[0];
+      return new User(
+        row.id,
+        row.username,
+        row.email,
+        row.password,
+        row.created_at,
+        row.updated_at
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async delete(id) {
+    try {
+      const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
+      return result.rows.length > 0;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async clearAll() {
+    try {
+      await pool.query('DELETE FROM users');
+      await pool.query('ALTER SEQUENCE users_id_seq RESTART WITH 1');
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

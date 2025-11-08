@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import "./Navbar.css";
 import useLang from "../../hooks/useLang";
+import diamondLogo from "../../assets/diamond.png";
+import gbFlag from "../../assets/GB.png";
+import seFlag from "../../assets/SE.png";
 
 export default function Navbar() {
   const { t, language, changeLanguage } = useLang();
@@ -38,12 +41,12 @@ export default function Navbar() {
     en: {
       code: "en",
       name: "English",
-      flag: "https://storage.123fakturere.no/public/flags/GB.png",
+      flag: gbFlag,
     },
     sv: {
       code: "sv",
       name: "Svenska",
-      flag: "https://storage.123fakturere.no/public/flags/SE.png",
+      flag: seFlag,
     },
   };
 
@@ -75,7 +78,7 @@ export default function Navbar() {
           <div className="logoa">
             <a href="/">
               <img
-                src="https://storage.123fakturera.se/public/icons/diamond.png"
+                src={diamondLogo}
                 alt={t("nav.logo")}
                 className="navigation-logo"
               />
@@ -120,7 +123,7 @@ export default function Navbar() {
               <div className="menu-drop-down-container">
                 {navItems.map((item) => (
                   <a
-                    key={item.path}
+                    key={item.nameKey}
                     className="menu-drop-down-item"
                     href={item.path}
                   >
@@ -134,7 +137,7 @@ export default function Navbar() {
           <div className="nav-right-group">
             <div className="pc-menu">
               {navItems.map((item) => (
-                <a key={item.path} className="pc-menu-item" href={item.path}>
+                <a key={item.nameKey} className="pc-menu-item" href={item.path}>
                   <span className="collectionSpan">{t(item.nameKey)}</span>
                 </a>
               ))}

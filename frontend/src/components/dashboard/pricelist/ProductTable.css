@@ -1,3 +1,79 @@
+/* Unsaved changes bar */
+.unsaved-changes-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 12px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 999;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    bottom: -60px;
+    opacity: 0;
+  }
+  to {
+    bottom: 20px;
+    opacity: 1;
+  }
+}
+
+.unsaved-changes-bar span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #856404;
+}
+
+.unsaved-changes-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-discard-changes,
+.btn-save-changes {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-discard-changes {
+  background: white;
+  color: #856404;
+  border: 1px solid #ffc107;
+}
+
+.btn-discard-changes:hover:not(:disabled) {
+  background: #fff9e6;
+}
+
+.btn-save-changes {
+  background: #ffc107;
+  color: #000;
+}
+
+.btn-save-changes:hover:not(:disabled) {
+  background: #ffb300;
+}
+
+.btn-discard-changes:disabled,
+.btn-save-changes:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .product-table-container {
   width: 100%;
   overflow-x: auto;
@@ -30,19 +106,30 @@
   background: #eeeeee;
 }
 
+.sort-icon {
+  color: #2196f3;
+  margin-left: 4px;
+}
+
 .product-table tbody tr {
   border-bottom: 1px solid #f0f0f0;
   transition: background 0.2s;
+  cursor: pointer;
 }
 
 .product-table tbody tr:hover {
   background: #fafafa;
 }
 
+.product-table tbody tr.selected-row {
+  background: rgba(33, 150, 243, 0.05);
+}
+
 .product-table td {
   padding: 14px 12px;
   color: #616161;
   vertical-align: middle;
+  position: relative;
 }
 
 .product-table td:nth-child(3),
@@ -55,16 +142,32 @@
   text-align: center;
 }
 
-.product-table tbody tr:first-child {
-  background: rgba(33, 150, 243, 0.05);
-}
-
-.product-table tbody tr:first-child td:first-child::before {
-  content: "→";
+.desktop-row-arrow {
   color: #2196f3;
   font-size: 18px;
   font-weight: bold;
   margin-right: 8px;
+  display: inline-block;
+}
+
+.desktop-table-input .input-wrapper {
+  margin: 0;
+}
+
+.desktop-table-input .input-field {
+  border: none;
+  background: transparent;
+  padding: 4px 8px;
+  font-size: 13px;
+  color: #424242;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.desktop-table-input .input-field:focus {
+  outline: none;
+  background: rgba(33, 150, 243, 0.05);
+  border-radius: 4px;
 }
 
 .row-action-btn {

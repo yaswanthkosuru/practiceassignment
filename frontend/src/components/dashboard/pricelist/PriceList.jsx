@@ -3,7 +3,7 @@ import useLang from "../../../hooks/useLang";
 import SearchBar from "../../ui/SearchBar";
 import ActionButtons from "./ActionButtons";
 import ProductTable from "./ProductTable";
-import { mockProducts } from "../mockData";
+import { useProducts } from "../../../hooks/useProducts";
 import "./PriceList.css";
 
 const PriceList = () => {
@@ -11,17 +11,19 @@ const PriceList = () => {
   const [articleSearch, setArticleSearch] = useState("");
   const [productSearch, setProductSearch] = useState("");
 
+  const { products, loading, error, batchUpdateProducts } = useProducts();
+
   const filteredProducts = useMemo(() => {
-    return mockProducts.filter((product) => {
-      const matchArticle = product.articleNo
+    return products.filter((product) => {
+      const matchArticle = (product.articleNo || "")
         .toLowerCase()
         .includes(articleSearch.toLowerCase());
-      const matchProduct = product.productService
+      const matchProduct = (product.productService || "")
         .toLowerCase()
         .includes(productSearch.toLowerCase());
       return matchArticle && matchProduct;
     });
-  }, [articleSearch, productSearch]);
+  }, [products, articleSearch, productSearch]);
 
   return (
     <div className="price-list">
@@ -44,7 +46,12 @@ const PriceList = () => {
       </div>
 
       <div className="price-list-content">
-        <ProductTable products={filteredProducts} />{" "}
+        <ProductTable
+          products={filteredProducts}
+          onBatchUpdate={batchUpdateProducts}
+          loading={loading}
+          error={error}
+        />
       </div>
     </div>
   );

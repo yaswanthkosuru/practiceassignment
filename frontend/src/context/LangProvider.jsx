@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useState, useEffect, useCallback, useMemo } from 'react';
 import useFetchTranslations from '../hooks/useFetchTranslations';
 
 export const LangContext = createContext();
@@ -17,7 +17,10 @@ const defaultTranslations = {
     "forgotPasswordLink": "Forgot password?",
     "errors": {
       "emailRequired": "Email is required",
-      "emailInvalid": "Please enter a valid email address"
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "userNotFound": "The user does not exist",
+      "invalidCredentials": "Invalid username or password"
     }
   },
   "nav": {
@@ -48,20 +51,22 @@ const defaultTranslations = {
     "inventorycontrol": "Inventory Control",
     "memberinvoicing": "Member Invoicing",
     "importexport": "Import/Export",
-    "logout": "Log out",
-    "searchArticle": "Search Article No ...",
-    "searchProduct": "Search Product ...",
-    "newProduct": "New Product",
-    "printList": "Print List",
-    "advancedMode": "Advanced mode",
-    "articleNo": "Article No.",
-    "productService": "Product/Service",
-    "inPrice": "In Price",
-    "price": "Price",
-    "unit": "Unit",
-    "inStock": "In Stock",
-    "description": "Description"
-  }
+    "logout": "Log out"
+  },
+  "menuStructure": [
+    { "id": "invoices", "icon": "📄", "route": "/dashboard/invoices", "order": 1 },
+    { "id": "customers", "icon": "👥", "route": "/dashboard/customers", "order": 2 },
+    { "id": "mybusiness", "icon": "⚙️", "route": "/dashboard/mybusiness", "order": 3 },
+    { "id": "invoicejournal", "icon": "📋", "route": "/dashboard/invoicejournal", "order": 4 },
+    { "id": "pricelist", "icon": "💰", "route": "/dashboard", "order": 5 },
+    { "id": "multipleinvoicing", "icon": "📑", "route": "/dashboard/multipleinvoicing", "order": 6 },
+    { "id": "unpaidinvoices", "icon": "💳", "route": "/dashboard/unpaidinvoices", "order": 7 },
+    { "id": "offer", "icon": "🎁", "route": "/dashboard/offer", "order": 8 },
+    { "id": "inventorycontrol", "icon": "📦", "route": "/dashboard/inventorycontrol", "order": 9 },
+    { "id": "memberinvoicing", "icon": "💼", "route": "/dashboard/memberinvoicing", "order": 10 },
+    { "id": "importexport", "icon": "☁️", "route": "/dashboard/importexport", "order": 11 },
+    { "id": "logout", "icon": "🚪", "route": "/logout", "order": 12 }
+  ]
 };
 
 export const LangProvider = ({ children }) => {
@@ -98,14 +103,23 @@ export const LangProvider = ({ children }) => {
     return value || key;
   }, [translations]);
 
-  const value = {
+  const getMenuItems = useCallback(() => {
+    const menuStructure = translations.menuStructure || [];
+    return menuStructure.map(item => ({
+      ...item,
+      label: t(`dashboard.${item.id}`)
+    }));
+  }, [translations, t]);
+
+  const value = useMemo(() => ({
     language,
     changeLanguage,
     t,
     loading,
     error,
-    translations
-  };
+    translations,
+    getMenuItems
+  }), [language, changeLanguage, t, loading, error, translations, getMenuItems]);
 
   return (
     <LangContext.Provider value={value}>

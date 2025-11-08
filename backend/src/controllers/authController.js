@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
       });
     }
 
-    const existingUser = User.findByEmail(email);
+    const existingUser = await User.findByEmail(email);
     if (existingUser) {
       return res.status(400).json({
         error: "User with this email already exists",
@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = User.create({
+    const newUser = await User.create({
       username,
       email,
       password: hashedPassword,
@@ -63,19 +63,29 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!username || !password) {
+    if (!email || !password) {
       return res.status(400).json({
-        error: "Please provide username and password",
+        error: "Please provide email and password",
       });
     }
 
-    const user = {
-      id: Math.floor(Math.random() * 10000) + 1,
-      username: username,
-      email: username,
-    };
+    const user = await User.findByEmail(email);
+
+    if (!user) {
+      return res.status(401).json({
+        error: "User does not exist",
+      });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        error: "Invalid email or password",
+      });
+    }
 
     const token = generateToken(user.id);
 
@@ -97,7 +107,7 @@ exports.login = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   try {
-    const user = User.findById(req.userId);
+    const user = await User.findById(req.userId);
 
     if (!user) {
       return res.status(404).json({

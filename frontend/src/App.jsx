@@ -12,38 +12,44 @@ function App() {
   return (
     <div className="app-container">
       <Routes>
-        <Route path="/" element={
-          <>
-            <Navbar />
-            <div className="gap"></div>
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+              <div className="gap"></div>
+            </>
+          }
+        />
+        <Route
+          path="/login"
+          element={
             <main className="main-content">
               <Loginpage />
             </main>
-            <Footer />
-          </>
-        } />
-        <Route path="/dashboard" element={
-          <DashboardLayout>
-            <PriceList />
-          </DashboardLayout>
-        } />
-        <Route path="/dashboard/:section" element={
-          <DashboardLayout>
-            <div style={{ padding: "20px", textAlign: "center" }}>
-              <h2>Section coming soon</h2>
-            </div>
-          </DashboardLayout>
-        } />
-        <Route path="/about" element={
-          <>
-            <Navbar />
-            <div className="gap"></div>
-            <main className="main-content">
-              <About />
-            </main>
-            <Footer />
-          </>
-        } />
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <DashboardLayout>
+              <PriceList />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <>
+              <Navbar />
+              <div className="gap"></div>
+              <main className="main-content">
+                <About />
+              </main>
+              <Footer />
+            </>
+          }
+        />
       </Routes>
     </div>
   );

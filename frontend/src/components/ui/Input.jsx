@@ -10,8 +10,21 @@ const Input = ({
   id,
   disabled = false,
   required = false,
-  className = ""
+  className = "",
+  min,
+  max,
+  step
 }) => {
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+
+    if (type === "number") {
+      onChange(newValue === "" ? "" : newValue);
+    } else {
+      onChange(newValue);
+    }
+  };
+
   return (
     <div className={`input-wrapper ${className}`}>
       {label && (
@@ -27,9 +40,12 @@ const Input = ({
         className="input-field"
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={handleChange}
         disabled={disabled}
         required={required}
+        min={min}
+        max={max}
+        step={step}
       />
     </div>
   );
